@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            text-align: center;
+        }
+        .calculator h2 {
+            margin-top: 0;
+            font-size: 24px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="calculator">
+    <h2>Калькулятор</h2>
+    <input type="number" id="number1" placeholder="Введите первое число">
+    <input type="number" id="number2" placeholder="Введите второе число">
+    <button onclick="calculate('add')">Сложение</button>
+    <button onclick="calculate('subtract')">Вычитание</button>
+    <button onclick="calculate('multiply')">Умножение</button>
+    <button onclick="calculate('divide')">Деление</button>
+    <div id="result"></div>
+</div>
+
+<script>
+    function calculate(operation) {
+        var number1 = parseFloat(document.getElementById("number1").value);
+        var number2 = parseFloat(document.getElementById("number2").value);
+        var result;
+
+        switch(operation) {
+            case 'add':
+                result = number1 + number2;
+                break;
+            case 'subtract':
+                result = number1 - number2;
+                break;
+            case 'multiply':
+                result = number1 * number2;
+                break;
+            case 'divide':
+                if(number2 !== 0) {
+                    result = number1 / number2;
+                } else {
+                    alert("Ошибка: деление на ноль!");
+                    return;
+                }
+                break;
+            default:
+                alert("Неизвестная операция!");
+                return;
+        }
+
+        document.getElementById("result").innerHTML = "Результат: " + result;
+        saveData(number1, number2, operation, result);
+    }
+
+    function saveData(number1, number2, operation, result) {
+        fetch('/saveData', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({number1: number1, number2: number2, operation: operation, result: result})
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        }).then(data => {
+            console.log(data);
+        }).catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
+    }
+</script>
+</body>
+</html>
+
+
+
