@@ -9,7 +9,7 @@ public class CalculatorDataHandler {
     // JDBC URL, username, and password of MySQL server
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/calculator";
     private static final String USER = "root";
-    private static final String PASSWORD = "Benjamin1*";
+    private static final String PASSWORD = "yourPassword";
 
     // SQL statement to insert data
     private static final String INSERT_DATA_SQL = "INSERT INTO calculations (number1, number2, operation, result) VALUES (?, ?, ?, ?)";
