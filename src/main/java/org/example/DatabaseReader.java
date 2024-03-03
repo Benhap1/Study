@@ -7,7 +7,7 @@ public class DatabaseReader {
     public static void main(String[] args) {
         String url = "jdbc:mysql://localhost:3306/calculator";
         String user = "root";
-        String password = "Benjamin1*";
+        String password = "yourPassword*";
 
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             String sql = "SELECT * FROM calculations";
