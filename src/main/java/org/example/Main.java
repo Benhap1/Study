@@ -9,7 +9,7 @@ public class Main {
     // JDBC URL, username, and password of MySQL server
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/";
     private static final String USER = "root";
-    private static final String PASSWORD = "Benjamin1*";
+    private static final String PASSWORD = "yourPassword*";
 
     // Database and table names
     private static final String DATABASE_NAME = "calculator";
